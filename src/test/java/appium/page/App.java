@@ -28,7 +28,7 @@ public class App extends BasePage{
     }
 
     public static SearchPage toSearch(){
-        findElementAndClick(By.id("com.xueqiu.android:id/tv_search"));
+        findElementAndClick(By.id("tv_search"));
         return new SearchPage();
 
 

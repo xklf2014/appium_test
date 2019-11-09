@@ -4,7 +4,7 @@ import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
 
 public class SearchPage extends BasePage{
-    private By inputBox = By.id("com.xueqiu.android:id/search_input_text");
+    private By inputBox = By.id("search_input_text");
 
     public SearchPage search(String keyWord){
         driver.findElement(inputBox).sendKeys(keyWord);
@@ -13,11 +13,11 @@ public class SearchPage extends BasePage{
     }
 
     public Float getCurrentPrice(){
-        return Float.valueOf(driver.findElementById("com.xueqiu.android:id/current_price").getText());
+        return Float.valueOf(driver.findElementById("current_price").getText());
     }
 
     public App cancel(){
-        findElementAndClick(By.id("com.xueqiu.android:id/action_close"));
+        findElementAndClick(By.id("action_close"));
         return new App();
     }
 }
