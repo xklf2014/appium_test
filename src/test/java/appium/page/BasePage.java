@@ -2,17 +2,11 @@ package appium.page;
 
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.touch.TapOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
-
-import javax.sql.XADataSource;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -57,6 +51,8 @@ public class BasePage {
         List<By> alertBoxs  = new ArrayList<>();
         alertBoxs.add(By.id("image_cancel"));
         alertBoxs.add(By.id("snb_tip_text"));
+        alertBoxs.add(By.id("ib_close"));
+        alertBoxs.add(By.id("md_buttonDefaultPositive"));
 
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 

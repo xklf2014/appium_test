@@ -47,6 +47,7 @@ public class App extends BasePage{
         followBtn = navigationBtns.get(2);
         marketBtn = navigationBtns.get(3);
         dealBtn = navigationBtns.get(4);
+
     }
 
     public static SearchPage toSearch(){
@@ -59,6 +60,11 @@ public class App extends BasePage{
         click(selfChooseBtn);
         return new StockPage();
 
+    }
+
+    public static AccountPage toAccountPage(){
+        click(findElement(By.id("user_profile_icon")));
+        return  new AccountPage();
     }
 
 }
