@@ -67,4 +67,9 @@ public class App extends BasePage{
         return  new AccountPage();
     }
 
+    public static FollowPage toFollowPage(){
+        click(followBtn);
+        return new FollowPage();
+    }
+
 }

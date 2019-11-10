@@ -24,6 +24,17 @@ public class BasePage {
 
     }
 
+    public static List<WebElement> findElements(By by){
+        try {
+            return driver.findElements(by);
+        }catch (Exception e){
+            //递归处理弹窗
+            handleAlert();
+            return driver.findElements(by);
+        }
+
+    }
+
     public static void click(By by){
         try {
             driver.findElement(by).click();

@@ -40,8 +40,8 @@ public class TestLoginWithPhone {
     @MethodSource("phoneNumberAndVerifyProvider")
     void login(String phone,String verify){
     //void login(){
-        accountPage=loginByPhonePage.login(phone,verify);
-        assertThat(accountPage.getLoginResultContent(),equalTo("验证码错误"));
+        loginByPhonePage.login(phone,verify);
+        assertThat(loginByPhonePage.getLoginResultContent(),equalTo("验证码错误"));
     }
 
     @AfterEach
@@ -51,8 +51,8 @@ public class TestLoginWithPhone {
 
     static Stream<Arguments> phoneNumberAndVerifyProvider() {
         return Stream.of(
-                Arguments.of("13690881001", "1111"),
-                Arguments.of("15690223459", "1234")
+                //Arguments.of("13690556001", "1111"),
+                Arguments.of("15665333459", "1234")
 
         );
     }
