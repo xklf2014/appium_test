@@ -39,4 +39,6 @@ public class TestFollowTopUsers {
         followUserPage.followTopUsers(3);
         assertThat(followUserPage.findFollowedUsers(),equalTo(3));
     }
+
+
 }

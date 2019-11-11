@@ -47,6 +47,12 @@ public class StockPage extends BasePage{
         return this;
     }
 
+    public CombinationPage toCombinationPage(){
+        click(By.id("page_type_cube"));
+        return new CombinationPage();
+    }
+
+
 
     public class Stock{
         String stockName;
