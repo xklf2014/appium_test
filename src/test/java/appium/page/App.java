@@ -33,7 +33,12 @@ public class App extends BasePage{
         URL remoteUrl = new URL("http://localhost:4723/wd/hub");
 
         driver = new AndroidDriver(remoteUrl, desiredCapabilities);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        new WebDriverWait(driver,30).until(x-> {
+            String xml = driver.getPageSource();
+            return xml.contains("home_search")||xml.contains("image_cancel");
+
+        });
 
         //new WebDriverWait(driver,30).until()
 

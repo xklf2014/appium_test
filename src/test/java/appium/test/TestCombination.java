@@ -29,7 +29,10 @@ public class TestCombination {
     @Order(1)
     void testFollowBillBoard(){
         billboard = combinationPage.toBillboard();
-        billboard.followBillBoard(1);
+        //根据当前页面排名查询，不可选不肯见内容
+        //billboard.followBillBoard(1);
+
+        billboard.followBillBoard("白酒");
         billboard.backToCombinationPage();
         combinationPage.backToStockPage();
 
