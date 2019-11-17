@@ -26,6 +26,8 @@ public class TestStock {
         stockPage = App.toStockPage();
     }
 
+
+
     @Test
     void addSelfChooseStock(){
         if (stockPage.getAllStocks() != null && stockPage.getAllStocks().size() > 0){

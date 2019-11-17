@@ -2,6 +2,8 @@ package appium.test;
 
 import appium.page.App;
 import appium.page.SearchPage;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import org.hamcrest.Matchers;
 import org.junit.After;
 import org.junit.Before;
@@ -11,6 +13,7 @@ import org.junit.Assert.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,20 +35,23 @@ public class TestSearch {
 
 
     @Parameterized.Parameters
-    public static Collection<Object[]> data(){
-        return Arrays.asList(new Object[][]{
+    public static Collection<Object[]> data() throws IOException {
+       /* return Arrays.asList(new Object[][]{
                 {"alibaba",100f},
                 {"xiaomi",5f},
                 {"jd",10f},
                 {"wankea",20f}
-        });
+        });*/
+        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+        Object[][] objects = mapper.readValue(TestSearch.class.getResourceAsStream("/app/Stock.yaml"),Object[][].class);
+        return Arrays.asList(objects);
     }
 
     @Parameterized.Parameter(0)
     public String stock;
 
     @Parameterized.Parameter(1)
-    public Float price;
+    public Double price;
 
 
     @Before
@@ -60,6 +66,6 @@ public class TestSearch {
 
     @Test
     public void search(){
-        assertThat(searchPage.search(stock).getCurrentPrice(), greaterThanOrEqualTo(price));
+        assertThat(searchPage.search(stock).getCurrentPrice(), greaterThanOrEqualTo(price.floatValue()));
     }
 }

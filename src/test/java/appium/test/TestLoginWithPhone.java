@@ -35,7 +35,7 @@ public class TestLoginWithPhone {
         loginByPhonePage = accountPage.toLoginByPhone();
     }
 
-    @Test
+    //@Test
     @ParameterizedTest
     @MethodSource("phoneNumberAndVerifyProvider")
     void login(String phone,String verify){
