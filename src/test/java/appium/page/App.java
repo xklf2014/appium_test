@@ -30,7 +30,7 @@ public class App extends BasePage{
         desiredCapabilities.setCapability("appActivity",".view.WelcomeActivityAlias");
         desiredCapabilities.setCapability("noReset",true);
         desiredCapabilities.setCapability("autoGrantPermissions",true);
-        URL remoteUrl = new URL("http://localhost:4723/wd/hub");
+        URL remoteUrl = new URL("http://192.168.2.116:4723/wd/hub");
 
         driver = new AndroidDriver(remoteUrl, desiredCapabilities);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
