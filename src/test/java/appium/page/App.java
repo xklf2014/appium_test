@@ -1,15 +1,12 @@
 package appium.page;
 
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
-import java.net.Socket;
 import java.net.URL;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -21,15 +18,25 @@ public class App extends BasePage{
     public static WebElement marketBtn;
     public static WebElement dealBtn;
 
+    private static App app;
+
+    public static App getAppInstance(){
+        if (app == null){
+            app = new App();
+        }
+        return app;
+    }
+
 
     public static void startUp() throws MalformedURLException {
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
         desiredCapabilities.setCapability("platformName", "android");
-        desiredCapabilities.setCapability("deviceName", "app");
+        desiredCapabilities.setCapability("deviceName", "appium");
         desiredCapabilities.setCapability("appPackage","com.xueqiu.android");
         desiredCapabilities.setCapability("appActivity",".view.WelcomeActivityAlias");
         desiredCapabilities.setCapability("noReset",true);
         desiredCapabilities.setCapability("autoGrantPermissions",true);
+        desiredCapabilities.setCapability("udid",System.getenv("udid"));
         URL remoteUrl = new URL("http://192.168.2.116:4723/wd/hub");
 
         driver = new AndroidDriver(remoteUrl, desiredCapabilities);
