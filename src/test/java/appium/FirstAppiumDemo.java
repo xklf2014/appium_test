@@ -2,8 +2,7 @@ package appium;
 
 import io.appium.java_client.MobileElement;
         import io.appium.java_client.android.AndroidDriver;
-        import junit.framework.TestCase;
-        import org.junit.After;
+import org.junit.After;
         import org.junit.Before;
         import org.junit.Test;
         import java.net.MalformedURLException;
@@ -20,7 +19,7 @@ public class FirstAppiumDemo {
     public void setUp() throws MalformedURLException {
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
         desiredCapabilities.setCapability("platformName", "android");
-        desiredCapabilities.setCapability("deviceName", "app");
+        desiredCapabilities.setCapability("deviceName", "appium");
         desiredCapabilities.setCapability("appPackage","com.xueqiu.android");
         desiredCapabilities.setCapability("appActivity",".view.WelcomeActivityAlias");
         desiredCapabilities.setCapability("noReset",true);

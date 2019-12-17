@@ -27,7 +27,7 @@ public class TestLoginWithPhone {
     static void setup() throws MalformedURLException {
         App.startUp();
         App.initNavigationBtn();
-        accountPage = App.toAccountPage();
+        accountPage = App.getAppInstance().toAccountPage();
     }
 
     @BeforeEach
@@ -50,6 +50,7 @@ public class TestLoginWithPhone {
     }
 
     static Stream<Arguments> phoneNumberAndVerifyProvider() {
+
         return Stream.of(
                 //Arguments.of("13690556001", "1111"),
                 Arguments.of("15665333459", "1234")

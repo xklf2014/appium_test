@@ -42,8 +42,12 @@ public class App extends BasePage{
         driver = new AndroidDriver(remoteUrl, desiredCapabilities);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         new WebDriverWait(driver,30).until(x-> {
+            boolean flag = false;
+            long begin = System.currentTimeMillis();
             String xml = driver.getPageSource();
-            return xml.contains("home_search")||xml.contains("image_cancel");
+            flag = xml.contains("home_search")||xml.contains("image_cancel");
+            System.out.println((System.currentTimeMillis()-begin)/1000);
+            return flag;
 
         });
 
@@ -62,25 +66,29 @@ public class App extends BasePage{
 
     }
 
-    public static SearchPage toSearch(){
-        click(By.id("tv_search"));
+    public SearchPage toSearch(){
+        //click(By.id("tv_search"));
+        parseStep("/appium/page/App.yaml","toSearch");
         return new SearchPage();
 
     }
 
-    public static StockPage toStockPage(){
-        click(selfChooseBtn);
+    public StockPage toStockPage(){
+        //click(selfChooseBtn);
+        parseStep("/appium/page/App.yaml","toStockPage");
         return new StockPage();
 
     }
 
-    public static AccountPage toAccountPage(){
-        click(findElement(By.id("user_profile_icon")));
+    public AccountPage toAccountPage(){
+        //click(findElement(By.id("user_profile_icon")));
+        parseStep("/appium/page/App.yaml","toAccountPage");
         return  new AccountPage();
     }
 
-    public static FollowPage toFollowPage(){
-        click(followBtn);
+    public FollowPage toFollowPage(){
+        //click(followBtn);
+        parseStep("/appium/page/App.yaml","toFollowPage");
         return new FollowPage();
     }
 

@@ -11,12 +11,12 @@ import java.util.List;
 public class StockPage extends BasePage{
 
     public StockPage deleteAll(){
-        click(By.id("edit_group"));
+/*        click(By.id("edit_group"));
         click(By.id("check_all"));
         click(By.id("cancel_follow"));
         click(By.id("md_buttonDefaultPositive"));
-        click(By.id("action_close"));
-
+        click(By.id("action_close"));*/
+        parseMethodStep("deleteAll");
         return this;
     }
 

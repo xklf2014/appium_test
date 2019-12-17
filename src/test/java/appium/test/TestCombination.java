@@ -15,7 +15,7 @@ public class TestCombination {
     static void setup() throws MalformedURLException {
         App.startUp();
         App.initNavigationBtn();
-        stockPage = App.toStockPage();
+        stockPage = App.getAppInstance().toStockPage();
 
     }
 

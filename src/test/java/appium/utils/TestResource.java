@@ -1,9 +1,7 @@
 package appium.utils;
 
-import appium.test.TestSearch;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import jdk.internal.org.objectweb.asm.TypeReference;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Test;
 
@@ -19,8 +17,8 @@ public class TestResource {
     public void readFile() throws IOException {
         System.out.println(this.getClass().getResource("/"));
 
-        System.out.println(this.getClass().getResource("/app/Stock.yaml"));
-        System.out.println(FileUtils.readFileToString(new File(this.getClass().getResource("/app/Stock.yaml").getPath())));
+        System.out.println(this.getClass().getResource("/appium/Stock.yaml"));
+        System.out.println(FileUtils.readFileToString(new File(this.getClass().getResource("/appium/Stock.yaml").getPath())));
 
     }
 
@@ -39,7 +37,7 @@ public class TestResource {
     @Test
     public void readYaml() throws IOException {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-        Object[][] objects = mapper.readValue(this.getClass().getResourceAsStream("/app/Stock.yaml"),Object[][].class);
+        Object[][] objects = mapper.readValue(this.getClass().getResourceAsStream("/appium/Stock.yaml"),Object[][].class);
         System.out.println(objects);
         System.out.println(objects[0][0]);
     }

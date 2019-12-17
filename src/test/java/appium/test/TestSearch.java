@@ -4,21 +4,17 @@ import appium.page.App;
 import appium.page.SearchPage;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import org.hamcrest.Matchers;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.Assert.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
@@ -43,7 +39,7 @@ public class TestSearch {
                 {"wankea",20f}
         });*/
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-        Object[][] objects = mapper.readValue(TestSearch.class.getResourceAsStream("/app/Stock.yaml"),Object[][].class);
+        Object[][] objects = mapper.readValue(TestSearch.class.getResourceAsStream("/appium/test/TestSearch.yaml"),Object[][].class);
         return Arrays.asList(objects);
     }
 
@@ -56,7 +52,7 @@ public class TestSearch {
 
     @Before
     public  void beforeMethod(){
-        searchPage = App.toSearch();
+        searchPage = App.getAppInstance().toSearch();
     }
 
     @After

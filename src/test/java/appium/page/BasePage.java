@@ -1,20 +1,38 @@
 package appium.page;
 
+import appium.model.PageObectModel;
+import appium.model.PageObjectElement;
+import appium.model.PageObjectMethod;
+import appium.test.TestSearch;
+import appium.utils.DataDriverProvider;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.provider.Arguments;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Stream;
 
 public class BasePage {
     public static AndroidDriver driver;
+
+    public static HashMap<String,Object> param = new HashMap<>();
+    public static HashMap<String,Object> texts = new HashMap<>();
+    private PageObectModel model = new PageObectModel();
 
     public static WebElement findElement(By by){
         try {
@@ -121,5 +139,122 @@ public class BasePage {
         touchAction.waitAction(WaitOptions.waitOptions(Duration.ofSeconds(1)));
         touchAction.moveTo(PointOption.point((int)(size.width*endX),(int)(size.height*endY)));
         touchAction.release().perform();
+    }
+
+    public void parseMethodStep(){
+        String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
+        System.out.println(methodName);
+        parseMethodStep(methodName);
+    }
+
+    public void parseMethodStep(String method){
+        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+        String path = "/"+this.getClass().getCanonicalName().replace(".","/") + ".yaml";
+        parseStep(path,method);
+    }
+
+    public  void parseStep(String path,String method){
+        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+        try {
+             model = mapper.readValue(
+                    BasePage.class.getResourceAsStream(path),PageObectModel.class);
+            parseStep(model.methods.get(method));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void parseElements(){
+
+    }
+
+    private void parseStep(PageObjectMethod dataDriverProvider){
+        dataDriverProvider.getDataProvider().forEach(step->{
+            WebElement element = null;
+            if (step.containsKey("id")){
+                element = driver.findElement(By.id(step.get("id")));
+            }else if(step.containsKey("xpath")){
+                element = driver.findElement(By.xpath(step.get("xpath")));
+            }else if(step.containsKey("aid")) {
+                element = driver.findElement(MobileBy.AccessibilityId("aid"));
+            }else if(step.containsKey("element")){
+                //未完成
+                //element = driver.findElement(model.elements.get(step.get("element")).getLocator());
+            }
+
+            if (element != null) {
+                if (step.get("send") != null) {
+                    String send = step.get("send");
+                    //替换变量
+                    for (Map.Entry<String,Object> kv : param.entrySet()){
+                        String matcher = "${"+kv.getKey()+"}";
+                        if (send.contains(matcher)){
+                            System.out.println(kv.getKey() + "====>" + kv.getValue());
+                            send = send.replace(matcher, kv.getValue().toString());
+                        }
+                    }
+                    element.sendKeys(send);
+                } else if (step.get("get") != null) {
+                    String price = element.getAttribute(step.get("get"));
+                    System.out.println("price====>"+price);
+                    texts.put(step.get("dump"),price);
+                } else {
+                    element.click();
+                }
+            }
+        });
+    }
+
+
+
+    public PageObjectElement dataProvider(Class caller){
+        PageObjectElement elements = new PageObjectElement();
+        String path = "/"+caller.getCanonicalName().replace(".","/") + ".yaml";
+        System.out.println(path);
+        List result = new ArrayList();
+        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+        try {
+
+            elements = mapper.readValue(TestSearch.class.getResourceAsStream(path),PageObjectElement.class);
+            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(elements));
+            return elements;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        /*PageObjectElement elements = model.elements.get("locator");
+        System.out.println(elements.getElement().toString());
+        for (HashMap<String, String> hashMap : elements.getElement()) {
+            System.out.println(hashMap.entrySet().stream());
+            Set<String> mapset = hashMap.keySet();
+            Iterator<String> itor = mapset.iterator();
+            while (itor.hasNext()){
+                HashMap<String,String> tmp = new HashMap<>();
+                String key = itor.next();
+                System.out.println(key + "====" + hashMap.get(key));
+            }
+        }*/
+
+    }
+
+   /* @Test
+    public void parseTest() throws MalformedURLException {
+        App.startUp();
+        BasePage basePage = new BasePage();
+        basePage.parseMethodStep("search");
+    }*/
+
+    public HashMap<String, Object> getParam() {
+        return param;
+    }
+
+    public void setParam(HashMap<String, Object> param) {
+        this.param = param;
+    }
+
+    public HashMap<String, Object> getTexts() {
+        return texts;
     }
 }

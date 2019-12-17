@@ -20,7 +20,7 @@ public class TestFollowTopUsers {
     static void setup() throws MalformedURLException {
         App.startUp();
         App.initNavigationBtn();
-        followPage = App.toFollowPage();
+        followPage = App.getAppInstance().toFollowPage();
     }
 
     @BeforeEach
