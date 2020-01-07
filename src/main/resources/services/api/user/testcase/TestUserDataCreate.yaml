@@ -1,0 +1,15 @@
+- userName: xxx
+  userId: xxx
+  address: Shanghai city pudong street 666
+  mobile: "13100000001"
+  department: [1]
+- userName: yyy
+  userId: yyy
+  address: Shanghai city pudong street 777
+  mobile: "13100000002"
+  department: [10]
+- userName: zzz
+  userId: zzz
+  address: Shanghai city pudong street 888
+  mobile: "13100000003"
+  department: [9]

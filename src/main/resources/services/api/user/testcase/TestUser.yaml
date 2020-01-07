@@ -1,0 +1,40 @@
+{
+  "errcode": 0,
+  "errmsg": "ok",
+  "userid": "{{userid}}",
+  "name": "{{name}}",
+  "department": [
+    1
+  ],
+  "position": "首席财务官",
+  "mobile": "{{mobile}}",
+  "gender": "1",
+  "email": "{{mobile}}@qq.com",
+  "avatar": "",
+  "status": 4,
+  "isleader": 1,
+  "extattr": {
+    "attrs": [
+
+    ]
+  },
+  "telephone": "020-99999999",
+  "enable": 1,
+  "hide_mobile": 0,
+  "order": [
+    0
+  ],
+  "external_profile": {
+    "external_attr": [
+
+    ],
+    "external_corp_name": ""
+  },
+  "qr_code": "https://open.work.weixin.qq.com/wwopen/userQRCode?vcode=vccb9ee8ba8613e760",
+  "alias": "test",
+  "is_leader_in_dept": [
+    1
+  ],
+  "address": "上海市黄浦区外滩18号8888号东方明珠最高层",
+  "thumb_avatar": ""
+}
