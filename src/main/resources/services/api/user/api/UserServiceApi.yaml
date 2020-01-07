@@ -1,0 +1,12 @@
+methods:
+  getUser:
+    query:
+      userid: ${userid}
+    method: get
+    url: https://qyapi.weixin.qq.com/cgi-bin/user/get
+
+  deleteUser:
+    query:
+      userid: ${userid}
+    method: get
+    url: https://qyapi.weixin.qq.com/cgi-bin/user/delete
