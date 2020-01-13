@@ -1,0 +1,148 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$id": "http://example.com/root.json",
+  "type": "object",
+  "title": "The Root Schema",
+  "required": [
+    "errcode",
+    "errmsg",
+    "userid",
+    "name",
+    "department",
+    "mobile",
+    "gender",
+    "email"
+  ],
+  "properties": {
+    "errcode": {
+      "$id": "#/properties/errcode",
+      "type": "integer",
+      "minimum": 0,
+
+      "maximum": 5
+    },
+    "errmsg": {
+      "$id": "#/properties/errmsg",
+      "type": "string",
+      "pattern": "^(.*)$"
+    },
+    "userid": {
+      "$id": "#/properties/userid",
+      "type": "string",
+      "pattern": "^(.*)$"
+    },
+    "name": {
+      "$id": "#/properties/name",
+      "type": "string",
+      "pattern": "^(.*)$"
+    },
+    "department": {
+      "$id": "#/properties/department",
+      "type": "array",
+      "title": "The Department Schema",
+      "items": {
+        "$id": "#/properties/department/items",
+        "type": "integer"
+      }
+    },
+    "position": {
+      "$id": "#/properties/position",
+      "type": "string",
+      "pattern": "^(.*)$"
+    },
+    "mobile": {
+      "$id": "#/properties/mobile",
+      "type": "string",
+      "pattern": "^([0-9]*)$"
+    },
+    "gender": {
+      "$id": "#/properties/gender",
+      "type": "string",
+      "pattern": "[01]"
+    },
+    "email": {
+      "$id": "#/properties/email",
+      "type": "string",
+      "anyOf": [
+        {
+          "format": "email"
+        },
+        {"pattern":""}
+      ]
+    },
+    "avatar": {
+      "$id": "#/properties/avatar",
+      "type": "string",
+      "pattern": "^(.*)$"
+    },
+    "status": {
+      "$id": "#/properties/status",
+      "type": "integer"
+    },
+    "isleader": {
+      "$id": "#/properties/isleader",
+      "type": "integer"
+    },
+    "extattr": {
+      "$id": "#/properties/extattr",
+      "type": "object",
+      "properties": {
+        "attrs": {
+          "$id": "#/properties/extattr/properties/attrs",
+          "type": "array"
+        }
+      }
+    },
+    "telephone": {
+      "$id": "#/properties/telephone",
+      "type": "string",
+      "title": "The Telephone Schema",
+      "pattern": "^(.*)$"
+    },
+    "enable": {
+      "$id": "#/properties/enable",
+      "type": "integer"
+    },
+    "hide_mobile": {
+      "$id": "#/properties/hide_mobile",
+      "type": "integer"
+    },
+    "order": {
+      "$id": "#/properties/order",
+      "type": "array",
+      "items": {
+        "$id": "#/properties/order/items",
+        "type": "integer"
+      }
+    },
+    "qr_code": {
+      "$id": "#/properties/qr_code",
+      "type": "string",
+      "pattern": "^(.*)$"
+    },
+    "alias": {
+      "$id": "#/properties/alias",
+      "type": "string",
+      "pattern": "^(.*)$"
+    },
+    "is_leader_in_dept": {
+      "$id": "#/properties/is_leader_in_dept",
+      "type": "array",
+      "items": {
+        "$id": "#/properties/is_leader_in_dept/items",
+        "type": "integer"
+      }
+    },
+    "address": {
+      "$id": "#/properties/address",
+      "type": "string",
+      "pattern": "^(.*)$"
+    },
+    "thumb_avatar": {
+      "$id": "#/properties/thumb_avatar",
+      "type": "string",
+      "pattern": "^(.*)$"
+    }
+  }
+}

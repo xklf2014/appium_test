@@ -12,6 +12,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
+import services.api.filter.Base64Filter;
 import services.api.user.api.UserService;
 
 import java.io.*;
@@ -20,6 +21,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
@@ -207,16 +210,19 @@ public class TestUser {
 
     @ParameterizedTest
     @MethodSource("batchcreateUserByYamlData")
-    public void batchcreateUserByYaml(String userName,String userId,String address,String mobile,List<Integer> department){
+    public void batchcreateUserByYaml(String userName,String userId,String address,String mobile,List<Integer> department,String email){
 
         HashMap<String,Object> data = new HashMap<>();
         data.put("department",department);
         data.put("name",userName);
         data.put("address",address);
         data.put("mobile",mobile);
+        data.put("email",email);
 
         userService.createUser(userId,data).then().body("errcode",equalTo(0));
-        userService.getUser(userId).then().body("name",equalTo(userName));
+        //userService.getUser(userId).then().body("name",equalTo(userName));
+        userService.getUser(userId).then().body(matchesJsonSchemaInClasspath("services/api/user/testcase/TestUserGetSchema.json"));
+        userService.deleteUser(userId).then().body("errcode",equalTo(0));
 
     }
 
@@ -230,7 +236,7 @@ public class TestUser {
             ArrayList<Arguments> resultData = new ArrayList<>();
             data.forEach(map -> {
                 resultData.add(arguments(map.get("userName"),map.get("userId"),
-                        map.get("address"),map.get("mobile"),map.get("department")));
+                        map.get("address"),map.get("mobile"),map.get("department"),map.get("email")));
             });
             return resultData.stream();
 
@@ -239,5 +245,28 @@ public class TestUser {
         }
 
         return Stream.of();
+    }
+
+    @Test
+    public void getUserValidateBySchema(){
+    //userService.getUser("test111").then().body("name",equalTo("test"));
+        userService.getUser("test111").then().body(matchesJsonSchemaInClasspath("services/api/user/testcase/TestUserSchema.json"));
+    }
+
+    @Test
+    public void testBase64(){
+        given().filter(new Base64Filter())
+                .when().log().all()
+                    .get("http://101.132.159.87:8080/user.json")
+                .then().log().all().body("name",equalTo("seveniruby"));
+
+    }
+    
+    @Test
+    public void testAuth(){
+      given().auth().oauth2("d02d75af2a2c10b198915d3e7a5236fb62b72674")
+              .when().log().all()
+                .get("https://api.github.com/user/emails")
+              .then().log().all().statusCode(200);
     }
 }
